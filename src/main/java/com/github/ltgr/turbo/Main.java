@@ -2,9 +2,11 @@ package com.github.ltgr.turbo;
 
 import java.lang.System;
 
+
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Hello World");
 
         Window window = new Window("Turbo", 600, 400);
         window.show();
