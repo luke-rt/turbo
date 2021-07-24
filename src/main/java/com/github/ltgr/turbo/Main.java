@@ -5,23 +5,36 @@ import java.lang.System;
 
 public class Main {
 
-    public static void main(String[] args) throws java.lang.InterruptedException {
-        Window window = new Window("Turbo", 600, 600);
+    static boolean autopaste;
+    static boolean autoenter;
+    static int cols;
+    static String path;
+    static String hotkey;
 
-        if(!Resizer.resizeAll("/home/luke/dev/turbo/assets", 64, 64)) System.exit(1);
+    public static void main(String[] args) {
+        // config
+        autopaste = true;
+        autoenter = true;
+        cols = 8;
+        path = "home/luke/dev/turbo/assets";
+        hotkey = "alt + w";
+        // config
 
-        EventListener.listenerInit("1 + 2");
-        while(true) {
-            if(EventListener.hotkeyPressed()) {
-                if(window.isVisible()) window.hide();
-                else window.show();
+        Window window = new Window("Turbo", cols * 80, 640);
+        Resizer.resizeAll(path, 64, 64);
+        EventListener.listenerInit(hotkey);
+        EventSimulator event_simulator = new EventSimulator(true, true);
 
-                EventListener.HK_1_PRESSED = false;
-                EventListener.HK_2_PRESSED = false;
-            }
+        // window event loop
+        boolean shouldClose = false;
+        while(!shouldClose) {
+            /*
+             * NOTE I actually hate this method of implementing detection of two key presses its naive and consumes CPU usage
+             * can someone hmu with better method, check EventListener.java and the hotkeyRegistered method to see the code
+             */
+            if(EventListener.hotkeyRegistered()) window.toggleVisibility();
             else System.out.print("");
 
         }
-
     }
 }

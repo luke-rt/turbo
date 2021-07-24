@@ -51,15 +51,6 @@ public class Window {
         this.visible = true;
     }
 
-    public void hide() {
-        /*
-         * Hide window
-         */
-        this.frame.setVisible(false);
-
-        this.visible = false;
-    }
-
     public void show(int x, int y) {
         /*
          * Shows window at specified coords
@@ -75,9 +66,22 @@ public class Window {
         this.visible = true;
     }
 
+    public void hide() {
+        /*
+         * Hide window
+         */
+        this.frame.setVisible(false);
+
+        this.visible = false;
+    }
+
     public boolean isVisible() {
         return visible;
+    }
 
+    public void toggleVisibility() {
+        if(this.isVisible()) this.hide();
+        else this.show();
     }
 
 }

@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 public class Resizer {
 
 
-    public static boolean resizeAll(String dir, int width, int height) {
+    public static void resizeAll(String dir, int width, int height) {
         /*
          * Scans specified asset directory, checks which images have not yet been resized
          * Resizes non-resized images
@@ -39,12 +39,11 @@ public class Resizer {
             }
 
             if(!exists) {
-                if(!resize(dir, original_img, width, height)) return false;
+                if(!resize(dir, original_img, width, height)) System.exit(1);
                 exists = true;
             }
         }
 
-        return true;
     }
 
     private static boolean resize(String dir, File img, int width, int height) {
