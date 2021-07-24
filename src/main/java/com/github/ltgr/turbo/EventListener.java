@@ -1,5 +1,6 @@
 package com.github.ltgr.turbo;
 
+import jdk.jfr.Event;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -44,13 +45,23 @@ public class EventListener {
         GlobalScreen.addNativeKeyListener(new NativeListener());
     }
 
+    public static boolean hotkeyRegistered() {
+        if(EventListener.hotkeyPressed()) {
+            // NOTE I actually hate this method of implementing detection of two key presses can someome hmu with better method
+            while(EventListener.hotkeyPressed()) System.out.print("");
+
+            return true;
+        }
+        return false;
+    }
+
     public static boolean hotkeyPressed() {
         /*
-         * returns the status of the hotkey
+         * returns whether the hotkey is pressed
          * NOTE: Turbo only reads when the key is released, not when it is pressed or typed
          *
          */
-        return EventListener.HK_1_PRESSED && EventListener.HK_2_PRESSED;
+        return (EventListener.HK_1_PRESSED && EventListener.HK_2_PRESSED);
     }
 
 }
@@ -65,6 +76,15 @@ class NativeListener implements NativeKeyListener {
          *
          */
         if(e.getKeyCode() == EventListener.HOTKEY_1) {
+            EventListener.HK_1_PRESSED = false;
+        } else if(e.getKeyCode() == EventListener.HOTKEY_2) {
+            EventListener.HK_2_PRESSED = false;
+        }
+    }
+
+    @Override
+    public void nativeKeyPressed(NativeKeyEvent e) {
+        if(e.getKeyCode() == EventListener.HOTKEY_1) {
             EventListener.HK_1_PRESSED = true;
         } else if(e.getKeyCode() == EventListener.HOTKEY_2) {
             EventListener.HK_2_PRESSED = true;
@@ -73,11 +93,6 @@ class NativeListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
-        // nothing to do
-    }
-
-    @Override
-    public void nativeKeyPressed(NativeKeyEvent e) {
         // nothing to do
     }
 }
