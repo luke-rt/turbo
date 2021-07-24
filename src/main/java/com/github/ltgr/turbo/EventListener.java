@@ -1,6 +1,5 @@
 package com.github.ltgr.turbo;
 
-import jdk.jfr.Event;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
