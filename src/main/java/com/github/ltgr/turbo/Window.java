@@ -1,11 +1,15 @@
 package com.github.ltgr.turbo;
 
 import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.MouseInfo;
+import java.awt.Point;
 
 
 public class Window {
     private int width;
     private int height;
+    private boolean visible;
 
     private final JFrame frame;
 
@@ -20,8 +24,12 @@ public class Window {
          */
         this.width = w;
         this.height = h;
+        this.visible = false;
 
         this.frame = new JFrame(title);
+        this.frame.setSize(this.width, this.height);
+        this.frame.setPreferredSize(new Dimension(this.width, this.height));
+
         this.frame.setUndecorated(true);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -29,12 +37,19 @@ public class Window {
 
     public void show() {
         /*
-         * Show window
+         * Shows window at mouse (top left corner)
          *
          */
-        this.frame.setLocationRelativeTo(null);
+
+        // TODO: add setting to specify window coords
+        Point location = MouseInfo.getPointerInfo().getLocation();
+        this.frame.setLocation((int)location.getX(), (int)location.getY());
+
         this.frame.pack();
         this.frame.setVisible(true);
+
+        this.visible = true;
+        System.out.println("Showing");
     }
 
     public void hide() {
@@ -42,6 +57,29 @@ public class Window {
          * Hide window
          */
         this.frame.setVisible(false);
+
+        this.visible = false;
+        System.out.println("Hiding");
+    }
+
+    public void show(int x, int y) {
+        /*
+         * Shows window at specified coords
+         *
+         * @param x     x coordinate
+         * @param y     y coordinate
+         */
+        this.frame.setLocation(x, y);
+
+        this.frame.pack();
+        this.frame.setVisible(true);
+
+        this.visible = true;
+    }
+
+    public boolean isVisible() {
+        return visible;
+
     }
 
 }
