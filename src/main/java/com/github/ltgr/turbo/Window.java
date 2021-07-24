@@ -49,7 +49,6 @@ public class Window {
         this.frame.setVisible(true);
 
         this.visible = true;
-        System.out.println("Showing");
     }
 
     public void hide() {
@@ -59,7 +58,6 @@ public class Window {
         this.frame.setVisible(false);
 
         this.visible = false;
-        System.out.println("Hiding");
     }
 
     public void show(int x, int y) {

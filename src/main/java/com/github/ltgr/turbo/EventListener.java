@@ -18,6 +18,11 @@ public class EventListener {
     public static boolean HK_2_PRESSED;
 
     public static void listenerInit(String hotkey) {
+        /*
+         * Initializes the Native listener
+         *
+         */
+
         // disable logging of mouse drag events
         LogManager.getLogManager().reset();
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -40,6 +45,11 @@ public class EventListener {
     }
 
     public static boolean hotkeyPressed() {
+        /*
+         * returns the status of the hotkey
+         * NOTE: Turbo only reads when the key is released, not when it is pressed or typed
+         *
+         */
         return EventListener.HK_1_PRESSED && EventListener.HK_2_PRESSED;
     }
 
@@ -47,13 +57,13 @@ public class EventListener {
 
 class NativeListener implements NativeKeyListener {
 
-    @Override
-    public void nativeKeyPressed(NativeKeyEvent e) {
-        // nothing to do
-    }
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
+        /*
+         * Measures when the key is released
+         *
+         */
         if(e.getKeyCode() == EventListener.HOTKEY_1) {
             EventListener.HK_1_PRESSED = true;
         } else if(e.getKeyCode() == EventListener.HOTKEY_2) {
@@ -66,4 +76,8 @@ class NativeListener implements NativeKeyListener {
         // nothing to do
     }
 
+    @Override
+    public void nativeKeyPressed(NativeKeyEvent e) {
+        // nothing to do
+    }
 }
