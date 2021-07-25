@@ -9,15 +9,13 @@ import javax.imageio.ImageIO;
 public class TurboImage {
 
     public BufferedImage handle;
-    public String path;
     public boolean isFavorite;
 
-    public TurboImage(String path) {
-        this.path = path;
+    public TurboImage(File file) {
         this.isFavorite = false;
 
         try {
-            this.handle = ImageIO.read(new File(path));
+            this.handle = ImageIO.read(file);
         } catch(IOException e) {
             System.out.println("Problem reading images");
             System.exit(1);

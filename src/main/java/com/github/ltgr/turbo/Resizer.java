@@ -20,7 +20,6 @@ public class Resizer {
          * @param height    new image heights
          *
          */
-        File assets = new File(dir);
         File original = new File(dir + "/original");
         File resized = new File(dir + "/resized");
         resized.mkdirs();
