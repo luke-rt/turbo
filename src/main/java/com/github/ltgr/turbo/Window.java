@@ -1,9 +1,7 @@
 package com.github.ltgr.turbo;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.MouseInfo;
-import java.awt.Point;
+import java.awt.*;
 
 
 public class Window {
@@ -13,7 +11,7 @@ public class Window {
 
     private final JFrame frame;
 
-    public Window(String title, int w, int h) {
+    public Window(String title, int w, int h, TurboImage[] images) {
         /*
          * Window initialization
          *
@@ -28,11 +26,35 @@ public class Window {
 
         this.frame = new JFrame(title);
         this.frame.setSize(this.width, this.height);
+        this.frame.getContentPane().setBackground(new Color(46, 46, 52));
         this.frame.setPreferredSize(new Dimension(this.width, this.height));
 
         this.frame.setUndecorated(true);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        this.refresh(images);
+    }
+
+    public void refresh(TurboImage[] images) {
+        // clear screen
+        this.frame.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+
+        for(TurboImage image : images) {
+            JButton button = new JButton(new ImageIcon(image.handle));
+            button.setBorder(BorderFactory.createEmptyBorder());
+            button.setContentAreaFilled(false);
+
+            panel.add(button);
+        }
+
+        this.frame.add(panel, gbc);
     }
 
     public void show() {

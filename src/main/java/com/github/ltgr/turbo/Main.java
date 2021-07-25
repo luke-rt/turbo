@@ -21,14 +21,15 @@ public class Main {
         hotkey = "alt + w";
         // config
 
-        Window window = new Window("Turbo", cols * 80, 640);
         Resizer.resizeAll(path, 64, 64);
-        EventListener.listenerInit(hotkey);
-        EventSimulator event_simulator = new EventSimulator(autopaste, autoenter);
 
         File[] assets = new File(path + "/resized").listFiles();
         TurboImage[] emojis = new TurboImage[assets.length];
         for(int i = 0; i < emojis.length; i++) emojis[i] = new TurboImage(assets[i]);
+
+        Window window = new Window("Turbo", cols * 60, 480, emojis);
+        EventListener.listenerInit(hotkey);
+        EventSimulator event_simulator = new EventSimulator(autopaste, autoenter);
 
         // window event loop
         boolean shouldClose = false;
