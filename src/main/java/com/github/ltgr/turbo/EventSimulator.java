@@ -13,6 +13,7 @@ public class EventSimulator {
     private final boolean autoenter;
 
     private Robot simulator;
+    private final Image2Clipboard copier;
 
     public EventSimulator(boolean autopaste, boolean autoenter) {
         this.autopaste = autopaste;
@@ -24,33 +25,31 @@ public class EventSimulator {
             System.exit(1);
         }
 
+        this.copier = new Image2Clipboard();
+
     }
 
-    public void run() throws InterruptedException {
+    public void run(TurboImage image) throws InterruptedException {
+        this.copier.copyImage(image.handle);
+
         if(this.autopaste) this.clipboardPaste();
+
         Thread.sleep(10);
         if(this.autoenter) this.typeEnter();
 
     }
 
     private void clipboardPaste() {
+        /*
+         * Simulates pasting
+         *
+         * TODO: cross platform
+         */
         simulator.keyPress(KeyEvent.VK_CONTROL);
         simulator.keyPress(KeyEvent.VK_V);
 
         simulator.keyRelease(KeyEvent.VK_CONTROL);
         simulator.keyRelease(KeyEvent.VK_V);
-
-    }
-
-    private void typeAltTab() {
-        /*
-         * Simulate alt tab action
-         */
-        simulator.keyPress(KeyEvent.VK_ALT);
-        simulator.keyPress(KeyEvent.VK_TAB);
-
-        simulator.keyRelease(KeyEvent.VK_ALT);
-        simulator.keyRelease(KeyEvent.VK_TAB);
 
     }
 

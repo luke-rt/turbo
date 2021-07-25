@@ -25,15 +25,10 @@ public class Main {
         Resizer.resizeAll(path, 64, 64);
         EventListener.listenerInit(hotkey);
         EventSimulator event_simulator = new EventSimulator(autopaste, autoenter);
-        Image2Clipboard img_copier = new Image2Clipboard();
 
         File[] assets = new File(path + "/resized").listFiles();
         TurboImage[] emojis = new TurboImage[assets.length];
         for(int i = 0; i < emojis.length; i++) emojis[i] = new TurboImage(assets[i]);
-
-        img_copier.copyImage(emojis[0].handle);
-        Thread.sleep(2000);
-        event_simulator.run();
 
         // window event loop
         boolean shouldClose = false;
@@ -43,8 +38,8 @@ public class Main {
              * can someone hmu with better method, check EventListener.java and the hotkeyRegistered method to see the code
              */
             if(EventListener.hotkeyRegistered()) window.toggleVisibility();
-            Thread.sleep(10);
 
+            Thread.sleep(10);
         }
     }
 }
