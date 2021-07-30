@@ -2,6 +2,8 @@ package com.github.ltgr.turbo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Window {
@@ -9,9 +11,13 @@ public class Window {
     private int height;
     private boolean visible;
 
+    private EventSimulator simulator;
+
+    private JButton[] buttons;
+
     private final JFrame frame;
 
-    public Window(String title, int w, int h, TurboImage[] images) {
+    public Window(String title, int w, int h, TurboImage[] images, boolean autopaste, boolean autoenter) {
         /*
          * Window initialization
          *
@@ -23,6 +29,8 @@ public class Window {
         this.width = w;
         this.height = h;
         this.visible = false;
+
+        this.simulator = new EventSimulator(autopaste, autoenter);
 
         this.frame = new JFrame(title);
         this.frame.setSize(this.width, this.height);
@@ -46,15 +54,29 @@ public class Window {
         gbc.weightx = 1;
         gbc.weighty = 1;
 
-        for(TurboImage image : images) {
-            JButton button = new JButton(new ImageIcon(image.handle));
-            button.setBorder(BorderFactory.createEmptyBorder());
-            button.setContentAreaFilled(false);
+        buttons = new JButton[images.length];
 
-            panel.add(button);
+        for(int i = 0; i < images.length; i++) {
+            buttons[i] = new JButton(new ImageIcon(images[i].handle));
+            buttons[i].setBorder(BorderFactory.createEmptyBorder());
+            buttons[i].setContentAreaFilled(false);
+
+            final int index = i;
+            buttons[i].addActionListener(e -> sendEmoji(images[index]));
+
+            panel.add(buttons[i]);
         }
 
         this.frame.add(panel, gbc);
+    }
+
+    public void sendEmoji(TurboImage image) {
+        this.hide();
+        try {
+            this.simulator.run(image);
+        } catch(InterruptedException e) {
+            System.exit(1);
+        }
     }
 
     public void show() {

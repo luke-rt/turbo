@@ -27,9 +27,8 @@ public class Main {
         TurboImage[] emojis = new TurboImage[assets.length];
         for(int i = 0; i < emojis.length; i++) emojis[i] = new TurboImage(assets[i]);
 
-        Window window = new Window("Turbo", cols * 60, 480, emojis);
+        Window window = new Window("Turbo", cols * 60, 480, emojis, autopaste, autoenter);
         EventListener.listenerInit(hotkey);
-        EventSimulator event_simulator = new EventSimulator(autopaste, autoenter);
 
         // window event loop
         boolean shouldClose = false;
