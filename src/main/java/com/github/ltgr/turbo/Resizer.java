@@ -57,8 +57,7 @@ public class Resizer {
          */
         try {
             BufferedImage input = ImageIO.read(img);
-            BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
+            BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
             Graphics2D g2d = output.createGraphics();
             g2d.drawImage(input, 0, 0, width, height, null);

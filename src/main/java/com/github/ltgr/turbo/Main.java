@@ -1,7 +1,6 @@
 package com.github.ltgr.turbo;
 
 import java.io.File;
-import java.lang.System;
 
 
 public class Main {
@@ -17,7 +16,7 @@ public class Main {
         autopaste = true;
         autoenter = true;
         cols = 8;
-        path = "/home/luke/dev/turbo/assets";
+        path = args[0];
         hotkey = "alt + w";
         // config
 

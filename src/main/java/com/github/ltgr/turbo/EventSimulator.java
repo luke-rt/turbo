@@ -30,8 +30,6 @@ public class EventSimulator {
     }
 
     public void run(TurboImage image) throws InterruptedException {
-        Thread.sleep(10);
-
         this.copier.copyImage(image.handle);
 
         if(this.autopaste) this.clipboardPaste();
