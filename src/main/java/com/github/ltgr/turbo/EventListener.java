@@ -17,7 +17,7 @@ public class EventListener {
     public static boolean HK_1_PRESSED;
     public static boolean HK_2_PRESSED;
 
-    public static void listenerInit(String hotkey) {
+    public static void listenerInit() {
         /*
          * Initializes the Native listener
          *

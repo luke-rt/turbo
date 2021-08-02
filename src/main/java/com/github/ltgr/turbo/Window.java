@@ -16,7 +16,7 @@ public class Window {
 
     private final JFrame frame;
 
-    public Window(String title, int w, int h, String path, boolean autopaste, boolean autoenter) {
+    public Window(String title, int w, int h) {
         /*
          * Window initialization
          *
@@ -29,7 +29,7 @@ public class Window {
         this.height = h;
         this.visible = false;
 
-        this.simulator = new EventSimulator(autopaste, autoenter);
+        this.simulator = new EventSimulator(Main.autopaste, Main.autoenter);
 
         this.frame = new JFrame(title);
         this.frame.setSize(this.width, this.height);
@@ -39,7 +39,7 @@ public class Window {
         this.frame.setUndecorated(true);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.refresh(path);
+        this.refresh(Main.path);
     }
 
     public void refresh(String path) {

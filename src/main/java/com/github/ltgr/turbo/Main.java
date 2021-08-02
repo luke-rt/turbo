@@ -16,12 +16,12 @@ public class Main {
         autoenter = true;
         cols = 8;
         path = args[0];
-        hotkey = "alt + w";
+        hotkey = "alt + w"; // currently does nothing
         sleep = 10;
         // config
 
-        Window window = new Window("Turbo", cols * 60, 480, path, autopaste, autoenter);
-        EventListener.listenerInit(hotkey);
+        Window window = new Window("Turbo", cols * 60, 480);
+        EventListener.listenerInit();
 
         // window event loop
         boolean shouldClose = false;
