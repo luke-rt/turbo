@@ -1,7 +1,5 @@
 package com.github.ltgr.turbo;
 
-import java.io.File;
-
 
 public class Main {
 
@@ -10,6 +8,7 @@ public class Main {
     static int cols;
     static String path;
     static String hotkey;
+    static int sleep;
 
     public static void main(String[] args) throws InterruptedException {
         // config
@@ -18,6 +17,7 @@ public class Main {
         cols = 8;
         path = args[0];
         hotkey = "alt + w";
+        sleep = 10;
         // config
 
         Window window = new Window("Turbo", cols * 60, 480, path, autopaste, autoenter);

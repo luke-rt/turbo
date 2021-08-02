@@ -1,10 +1,11 @@
 package com.github.ltgr.turbo;
 
+import org.imgscalr.Scalr;
+
 import java.io.IOException;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
 
 
 public class Resizer {
@@ -57,19 +58,23 @@ public class Resizer {
          */
         try {
             BufferedImage input = ImageIO.read(img);
-            BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-            Graphics2D g2d = output.createGraphics();
-            g2d.drawImage(input, 0, 0, width, height, null);
-            g2d.dispose();
+            BufferedImage output = Scalr.resize(
+                input,
+                Scalr.Method.AUTOMATIC,
+                Scalr.Mode.AUTOMATIC,
+                width,
+                height,
+                Scalr.OP_ANTIALIAS
+            );
 
             String filename = dir + "/resized/" + img.getName();
             String extension = img.getName().substring(img.getName().lastIndexOf(".") + 1);
 
             ImageIO.write(output, extension, new File(filename));
+        } catch(IOException e){
+            System.out.println("Problem reading files from assets directory");
+            System.exit(1);
 
-        } catch (IOException e) {
-            System.out.println("Error opening asset directories, please make sure the directory exists and is accessibly by the user");
             return false;
         }
 
