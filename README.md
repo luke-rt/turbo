@@ -1,6 +1,6 @@
 # Turbo
 > NOTE: This is basically a Java rip off of [@dchen327](https://github.com/dchen327)'s fantastic [pingmote](https://github.com/dchen327/pingmote) project
-> PLEASE check it out if you want a better and better maintained project
+> PLEASE check it out if you want a better and better maintained project and not just a java practicing repository
 
 A cross-platform emoji manager that lets you insert emojis into any app you want!
 
@@ -16,7 +16,10 @@ Turbo uses:
 - jnativehook([org.jnativehook](https://github.com/kwhat/jnativehook)) for global hotkeys
 - Other built in libraries like javax.swing for its GUI
 
+Turbo is built with the Maven Java framework
+
 ## TODO
 - .exe, .dmg, and .AppImage files in releases
 - better resizing(higher quality resized images, transparency)
-- config file
+- Config file or similiar
+- Better GUI

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 
 public class Window {
@@ -11,13 +12,11 @@ public class Window {
     private int height;
     private boolean visible;
 
-    private EventSimulator simulator;
-
-    private JButton[] buttons;
+    final private EventSimulator simulator;
 
     private final JFrame frame;
 
-    public Window(String title, int w, int h, TurboImage[] images, boolean autopaste, boolean autoenter) {
+    public Window(String title, int w, int h, String path, boolean autopaste, boolean autoenter) {
         /*
          * Window initialization
          *
@@ -40,12 +39,18 @@ public class Window {
         this.frame.setUndecorated(true);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.refresh(images);
+        this.refresh(path);
     }
 
-    public void refresh(TurboImage[] images) {
+    public void refresh(String path) {
         // clear screen
         this.frame.setLayout(new GridBagLayout());
+
+        File[] assets = new File(path + "/resized").listFiles();
+        TurboImage[] images = new TurboImage[assets.length];
+        for(int i = 0; i < images.length; i++) images[i] = new TurboImage(assets[i]);
+
+        Resizer.resizeAll(path, 64, 64);
 
         JPanel panel = new JPanel(new GridBagLayout());
 
@@ -54,7 +59,7 @@ public class Window {
         gbc.weightx = 1;
         gbc.weighty = 1;
 
-        buttons = new JButton[images.length];
+        JButton[] buttons = new JButton[images.length];
 
         for(int i = 0; i < images.length; i++) {
             buttons[i] = new JButton(new ImageIcon(images[i].handle));

@@ -20,13 +20,7 @@ public class Main {
         hotkey = "alt + w";
         // config
 
-        Resizer.resizeAll(path, 64, 64);
-
-        File[] assets = new File(path + "/resized").listFiles();
-        TurboImage[] emojis = new TurboImage[assets.length];
-        for(int i = 0; i < emojis.length; i++) emojis[i] = new TurboImage(assets[i]);
-
-        Window window = new Window("Turbo", cols * 60, 480, emojis, autopaste, autoenter);
+        Window window = new Window("Turbo", cols * 60, 480, path, autopaste, autoenter);
         EventListener.listenerInit(hotkey);
 
         // window event loop
