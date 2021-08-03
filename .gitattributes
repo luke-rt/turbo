@@ -1,25 +1,13 @@
 # java
 *.java          text diff=java
-
-*.css           text diff=css
-*.df            text
-*.htm           text diff=html
-*.html          text diff=html
-*.js            text
-*.jsp           text
-*.jspf          text
-*.jspx          text
-*.properties    text
-*.tld           text
-*.tag           text
-*.tagx          text
 *.xml           text
 
 # binary
 *.class         binary
 *.dll           binary
-*.ear           binary
 *.jar           binary
-*.so            binary
-*.war           binary
-*.jks           binary
+
+# pkg
+*.dmg           binary
+*.exe           binary
+*.AppImage      binary
