@@ -14,12 +14,12 @@ The assets directory should be whatever folder contains the "original" and "resi
 ## How it works
 Turbo uses:
 - jnativehook([org.jnativehook](https://github.com/kwhat/jnativehook)) for global hotkeys
+- imgscalr([org.imgscalr](https://github.com/rkalla/imgscalr)) for image resizing
 - Other built in libraries like javax.swing for its GUI
 
 Turbo is built with the Maven Java framework
 
 ## TODO
 - .exe, .dmg, and .AppImage files in releases
-- better resizing(higher quality resized images, transparency)
 - Config file or similiar
 - Better GUI
