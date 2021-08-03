@@ -32,11 +32,11 @@ public class EventSimulator {
     public void run(TurboImage image) throws InterruptedException {
         this.copier.copyImage(image.handle);
 
-        Thread.sleep(10);
+        Thread.sleep(Main.sleep);
 
         if(this.autopaste) this.clipboardPaste();
 
-        Thread.sleep(10);
+        Thread.sleep(Main.sleep);
 
         if(this.autoenter) this.typeEnter();
 

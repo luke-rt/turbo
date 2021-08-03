@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 
 public class Resizer {
 
-
     public static void resizeAll(String dir, int width, int height) {
         /*
          * Scans specified asset directory, checks which images have not yet been resized
