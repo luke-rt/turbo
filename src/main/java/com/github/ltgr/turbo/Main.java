@@ -1,6 +1,10 @@
 package com.github.ltgr.turbo;
 
 
+import org.ini4j.Ini;
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
 
     static boolean autopaste;
@@ -9,16 +13,37 @@ public class Main {
     static String path;
     static String hotkey;
     static int sleep;
+    static int open_location_x;
+    static int open_location_y;
+    static boolean open_at_mouse;
 
     public static void main(String[] args) throws InterruptedException {
-        // config
+        // defaults
+        path = args[0];
+        hotkey = "alt + w";
+        open_location_x = 100;
+        open_location_y = 100;
+        open_at_mouse = true;
+        cols = 8;
         autopaste = true;
         autoenter = true;
-        cols = 8;
-        path = args[0];
-        hotkey = "alt + w"; // currently does nothing
         sleep = 10;
-        // config
+        // defaults
+
+        try {
+            Ini conf = new Ini(new File(path + "/turbo.conf"));
+
+            hotkey = conf.get("HOTKEYS", "HOTKEY");
+            open_location_x = Integer.parseInt(conf.get("WINDOW", "WINDOW_COORD_X"));
+            open_location_y = Integer.parseInt(conf.get("WINDOW", "WINDOW_COORD_Y"));
+            open_at_mouse = (conf.get("WINDOW", "OPEN_AT_MOUSE").equals("true"));
+            cols = Integer.parseInt(conf.get("GUI", "COLS"));
+            autopaste = (conf.get("FUNCTIONALITY", "AUTOPASTE").equals("true"));
+            autoenter = (conf.get("FUNCTIONALITY", "AUTOENTER").equals("true"));
+            sleep = Integer.parseInt(conf.get("EXPERIMENTAL", "SLEEP_TIME"));
+        } catch(IOException e) {
+            System.out.println("configuration file in assets not found, defaulting to default settings");
+        }
 
         Window window = new Window("Turbo", cols * 60, 480);
         EventListener.listenerInit();

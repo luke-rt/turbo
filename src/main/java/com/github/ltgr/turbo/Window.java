@@ -90,24 +90,14 @@ public class Window {
          *
          */
 
-        // TODO: add setting to specify window coords
-        Point location = MouseInfo.getPointerInfo().getLocation();
-        this.frame.setLocation((int)location.getX(), (int)location.getY());
+        if(Main.open_at_mouse) {
+            Point location = MouseInfo.getPointerInfo().getLocation();
+            this.frame.setLocation((int)location.getX(), (int)location.getY());
 
-        this.frame.pack();
-        this.frame.setVisible(true);
+        } else {
+            this.frame.setLocation(Main.open_location_x, Main.open_location_y);
 
-        this.visible = true;
-    }
-
-    public void show(int x, int y) {
-        /*
-         * Shows window at specified coords
-         *
-         * @param x     x coordinate
-         * @param y     y coordinate
-         */
-        this.frame.setLocation(x, y);
+        }
 
         this.frame.pack();
         this.frame.setVisible(true);

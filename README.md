@@ -21,5 +21,5 @@ Turbo is built with the Maven Java framework
 
 ## TODO
 - .exe, .dmg, and .AppImage files in releases
-- Config file or similiar
+- error checking for config file, ie max values and int vs strings
 - Better GUI
