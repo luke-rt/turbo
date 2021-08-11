@@ -36,11 +36,15 @@ public class Main {
             hotkey = conf.get("HOTKEYS", "HOTKEY");
             open_location_x = Integer.parseInt(conf.get("WINDOW", "WINDOW_COORD_X"));
             open_location_y = Integer.parseInt(conf.get("WINDOW", "WINDOW_COORD_Y"));
-            open_at_mouse = (conf.get("WINDOW", "OPEN_AT_MOUSE").equals("true"));
+            open_at_mouse = (conf.get("WINDOW", "OPEN_AT_MOUSE").equals("true") || Integer.parseInt(conf.get("WINDOW", "OPEN_AT_MOUSE")) == 1);
             cols = Integer.parseInt(conf.get("GUI", "COLS"));
-            autopaste = (conf.get("FUNCTIONALITY", "AUTOPASTE").equals("true"));
-            autoenter = (conf.get("FUNCTIONALITY", "AUTOENTER").equals("true"));
+            autopaste = (conf.get("FUNCTIONALITY", "AUTOPASTE").equals("true") || Integer.parseInt(conf.get("FUNCTIONALITY", "AUTOPASTE")) == 1);
+            autoenter = (conf.get("FUNCTIONALITY", "AUTOENTER").equals("true") || Integer.parseInt(conf.get("FUNCTIONALITY", "AUTOENTER")) == 1);
             sleep = Integer.parseInt(conf.get("EXPERIMENTAL", "SLEEP_TIME"));
+
+            if(autoenter) autopaste = true;
+            // check if open_location_x, open_location_y, cols, and sleep are NaN
+
         } catch(IOException e) {
             System.out.println("configuration file in assets not found, defaulting to default settings");
         }
