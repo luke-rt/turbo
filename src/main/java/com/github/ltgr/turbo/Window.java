@@ -6,12 +6,13 @@ import java.io.File;
 
 
 public class Window {
-    private int width;
-    private int height;
     private boolean visible;
+    private enum State {
+        EMOJI,
+
+    }
 
     final private EventSimulator simulator;
-
     private final JFrame frame;
 
     public Window(String title, int w, int h) {
@@ -23,16 +24,15 @@ public class Window {
          * @param   h       integer height of window
          *
          */
-        this.width = w;
-        this.height = h;
         this.visible = false;
 
         this.simulator = new EventSimulator(Main.autopaste, Main.autoenter);
 
         this.frame = new JFrame(title);
-        this.frame.setSize(this.width, this.height);
+        this.frame.setSize(w, h);
+
         this.frame.getContentPane().setBackground(new Color(46, 46, 52));
-        this.frame.setPreferredSize(new Dimension(this.width, this.height));
+        this.frame.setPreferredSize(new Dimension(w, h));
 
         this.frame.setUndecorated(true);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,16 +41,23 @@ public class Window {
     }
 
     public void refresh(String path) {
-        // clear screen
-        this.frame.setLayout(new GridBagLayout());
 
+        // converting assets
         File[] assets = new File(path + "/resized").listFiles();
         TurboImage[] images = new TurboImage[assets.length];
         for(int i = 0; i < images.length; i++) images[i] = new TurboImage(assets[i]);
 
+        // resize all images
         Resizer.resizeAll(path, 64, 64);
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        // GUI
+        JPanel master = new JPanel(new BorderLayout());
+        JPanel emojis = new JPanel(new GridBagLayout());
+        JPanel options = new JPanel();
+
+
+        // emojis
+        emojis.setOpaque(false);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -58,7 +65,6 @@ public class Window {
         gbc.weighty = 1;
 
         JButton[] buttons = new JButton[images.length];
-
         for(int i = 0; i < images.length; i++) {
             buttons[i] = new JButton(new ImageIcon(images[i].handle));
             buttons[i].setBorder(BorderFactory.createEmptyBorder());
@@ -67,10 +73,38 @@ public class Window {
             final int index = i;
             buttons[i].addActionListener(e -> sendEmoji(images[index]));
 
-            panel.add(buttons[i]);
+            emojis.add(buttons[i], gbc);
         }
 
-        this.frame.add(panel, gbc);
+        // options bar
+        options.setOpaque(false);
+
+        JButton hideButton = new JButton("HIDE");
+        hideButton.setBorder(BorderFactory.createEmptyBorder());
+        hideButton.setContentAreaFilled(false);
+        hideButton.setForeground(new Color(220, 220, 220));
+        hideButton.setFont(new Font("Cousine", Font.BOLD, 16));
+
+        hideButton.addActionListener(e -> hide());
+
+        hideButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent m) {
+                hideButton.setForeground(new Color(245,245,245));
+            }
+            public void mouseExited(java.awt.event.MouseEvent m) {
+                hideButton.setForeground(new Color(220, 220, 220));
+            }
+        });
+
+        options.add(hideButton, BorderLayout.LINE_END);
+
+        // grouping together
+        master.setOpaque(false);
+
+        master.add(options, BorderLayout.NORTH);
+        master.add(emojis, BorderLayout.CENTER);
+
+        this.frame.add(master);
     }
 
     public void sendEmoji(TurboImage image) {
